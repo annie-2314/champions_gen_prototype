@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="logoGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#e8e8e8;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#d0d0d0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#b8b8b8;stop-opacity:1" />
+    </radialGradient>
+    <radialGradient id="ballGradient" cx="30%" cy="30%" r="80%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.9" />
+      <stop offset="50%" style="stop-color:#e0e0e0;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#c0c0c0;stop-opacity:0.7" />
+    </radialGradient>
+    <linearGradient id="swooshGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#e0e0e0;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#c0c0c0;stop-opacity:0.4" />
+    </linearGradient>
+    <filter id="metallic" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Outer swoosh rings -->
+  <path d="M50,200 Q100,50 200,80 Q300,110 350,200 Q300,290 200,320 Q100,350 50,200 Z" 
+        fill="none" stroke="url(#swooshGrad)" stroke-width="8" opacity="0.7" filter="url(#metallic)"/>
+  
+  <path d="M70,200 Q110,80 200,100 Q290,120 330,200 Q290,280 200,300 Q110,320 70,200 Z" 
+        fill="none" stroke="url(#swooshGrad)" stroke-width="6" opacity="0.6"/>
+  
+  <path d="M90,200 Q120,110 200,130 Q280,150 310,200 Q280,250 200,270 Q120,290 90,200 Z" 
+        fill="none" stroke="url(#swooshGrad)" stroke-width="4" opacity="0.5"/>
+  
+  <!-- Central soccer ball -->
+  <g transform="translate(200,200)" filter="url(#metallic)">
+    <!-- Main ball circle with metallic finish -->
+    <circle cx="0" cy="0" r="85" fill="url(#ballGradient)" stroke="url(#logoGradient)" stroke-width="3"/>
+    
+    <!-- Pentagon in center -->
+    <path d="M-28,-40 L28,-40 L45,-12 L17,32 L-17,32 L-45,-12 Z" 
+          fill="none" stroke="url(#logoGradient)" stroke-width="4"/>
+    
+    <!-- Hexagon patterns around pentagon -->
+    <path d="M-50,-22 L-33,-45 L-11,-45 L6,-22 L-11,1 L-33,1 Z" 
+          fill="none" stroke="url(#logoGradient)" stroke-width="3"/>
+    
+    <path d="M33,-45 L55,-45 L72,-22 L55,1 L33,1 L16,-22 Z" 
+          fill="none" stroke="url(#logoGradient)" stroke-width="3"/>
+    
+    <path d="M-50,32 L-33,9 L-11,9 L6,32 L-11,55 L-33,55 Z" 
+          fill="none" stroke="url(#logoGradient)" stroke-width="3"/>
+    
+    <path d="M33,1 L55,1 L72,24 L55,47 L33,47 L16,24 Z" 
+          fill="none" stroke="url(#logoGradient)" stroke-width="3"/>
+    
+    <!-- Additional hexagons for completeness -->
+    <path d="M-11,-68 L11,-68 L28,-45 L11,-22 L-11,-22 L-28,-45 Z" 
+          fill="none" stroke="url(#logoGradient)" stroke-width="2.5" opacity="0.8"/>
+    
+    <path d="M-11,55 L11,55 L28,78 L11,101 L-11,101 L-28,78 Z" 
+          fill="none" stroke="url(#logoGradient)" stroke-width="2.5" opacity="0.8"/>
+    
+    <!-- Connecting lines between panels -->
+    <g stroke="url(#logoGradient)" stroke-width="2.5" opacity="0.9">
+      <path d="M-28,-40 L-33,-45 M28,-40 L33,-45 M45,-12 L55,-22 M45,-12 L72,-22
+               M17,32 L16,24 M17,32 L33,1 M-17,32 L-33,9 M-17,32 L-16,24
+               M-45,-12 L-50,-22 M-45,-12 L-72,-22"/>
+    </g>
+    
+    <!-- Inner circle details -->
+    <circle cx="0" cy="0" r="60" fill="none" stroke="url(#logoGradient)" stroke-width="1.5" opacity="0.4"/>
+    <circle cx="0" cy="0" r="35" fill="none" stroke="url(#logoGradient)" stroke-width="1" opacity="0.3"/>
+  </g>
+  
+  <!-- Additional swoosh elements for dynamic effect -->
+  <path d="M80,120 Q150,100 220,120 Q290,140 320,180" 
+        fill="none" stroke="url(#swooshGrad)" stroke-width="3" opacity="0.4"/>
+  
+  <path d="M80,280 Q150,300 220,280 Q290,260 320,220" 
+        fill="none" stroke="url(#swooshGrad)" stroke-width="3" opacity="0.4"/>
+  
+  <!-- Highlight effects -->
+  <ellipse cx="160" cy="160" rx="20" ry="35" fill="none" stroke="url(#logoGradient)" 
+           stroke-width="2" opacity="0.6" transform="rotate(-30 160 160)"/>
+  
+  <ellipse cx="240" cy="160" rx="15" ry="25" fill="none" stroke="url(#logoGradient)" 
+           stroke-width="1.5" opacity="0.4" transform="rotate(45 240 160)"/>
+</svg>

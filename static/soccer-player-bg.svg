@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="playerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00f5ff;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#0080ff;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.4" />
+    </linearGradient>
+    <filter id="playerGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Soccer player silhouette -->
+  <g transform="translate(800,400)" filter="url(#playerGlow)" opacity="0.3">
+    <!-- Player body -->
+    <path d="M0,-150 Q-20,-140 -25,-120 L-30,-80 Q-35,-60 -30,-40 L-25,0 Q-20,40 -15,80 L-10,120 Q-5,140 0,150" 
+          fill="none" stroke="url(#playerGrad)" stroke-width="4"/>
+    
+    <!-- Head -->
+    <circle cx="0" cy="-160" r="25" fill="none" stroke="url(#playerGrad)" stroke-width="3"/>
+    
+    <!-- Arms -->
+    <path d="M-25,-100 Q-50,-90 -60,-70 Q-70,-50 -65,-30" 
+          fill="none" stroke="url(#playerGrad)" stroke-width="3"/>
+    <path d="M25,-100 Q50,-110 65,-90 Q80,-70 75,-50" 
+          fill="none" stroke="url(#playerGrad)" stroke-width="3"/>
+    
+    <!-- Legs -->
+    <path d="M-15,80 Q-25,120 -20,160 Q-15,180 -10,200" 
+          fill="none" stroke="url(#playerGrad)" stroke-width="3"/>
+    <path d="M15,80 Q25,120 30,160 Q35,180 40,200" 
+          fill="none" stroke="url(#playerGrad)" stroke-width="3"/>
+    
+    <!-- Kicking leg (right leg in motion) -->
+    <path d="M15,80 Q40,60 70,40 Q90,20 100,0" 
+          fill="none" stroke="url(#playerGrad)" stroke-width="4">
+      <animate attributeName="d" 
+               values="M15,80 Q40,60 70,40 Q90,20 100,0;M15,80 Q45,55 75,35 Q95,15 105,-5;M15,80 Q40,60 70,40 Q90,20 100,0" 
+               dur="2s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Soccer ball -->
+    <g transform="translate(120,-20)">
+      <circle cx="0" cy="0" r="15" fill="none" stroke="url(#playerGrad)" stroke-width="2"/>
+      <path d="M-8,-12 L8,-12 L12,-4 L4,10 L-4,10 L-12,-4 Z" 
+            fill="none" stroke="url(#playerGrad)" stroke-width="1.5"/>
+      <animateTransform attributeName="transform" 
+                        values="translate(120,-20) rotate(0);translate(140,-40) rotate(180);translate(160,-60) rotate(360)" 
+                        dur="3s" repeatCount="indefinite"/>
+    </g>
+  </g>
+  
+  <!-- Additional soccer elements -->
+  <g opacity="0.2">
+    <!-- Left side player silhouette -->
+    <g transform="translate(200,500)" filter="url(#playerGlow)">
+      <path d="M0,-100 Q-15,-90 -20,-70 L-25,-30 Q-30,-10 -25,10 L-20,50 Q-15,90 -10,120 L-5,150" 
+            fill="none" stroke="url(#playerGrad)" stroke-width="3"/>
+      <circle cx="0" cy="-110" r="20" fill="none" stroke="url(#playerGrad)" stroke-width="2"/>
+      <path d="M-20,-60 Q-40,-50 -45,-30" fill="none" stroke="url(#playerGrad)" stroke-width="2"/>
+      <path d="M20,-60 Q40,-70 50,-50" fill="none" stroke="url(#playerGrad)" stroke-width="2"/>
+    </g>
+    
+    <!-- Floating soccer balls -->
+    <g stroke="url(#playerGrad)" stroke-width="2" fill="none">
+      <circle cx="100" cy="200" r="12" opacity="0.6">
+        <animate attributeName="cy" values="200;180;200" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1000" cy="150" r="10" opacity="0.5">
+        <animate attributeName="cy" values="150;130;150" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="300" cy="600" r="8" opacity="0.4">
+        <animate attributeName="cy" values="600;580;600" dur="3s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+  
+  <!-- Tech grid pattern -->
+  <g stroke="url(#playerGrad)" stroke-width="0.5" opacity="0.1">
+    <defs>
+      <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+        <path d="M 50 0 L 0 0 0 50" fill="none"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#grid)"/>
+  </g>
+  
+  <!-- Animated lines -->
+  <g stroke="url(#playerGrad)" stroke-width="1" opacity="0.3">
+    <path d="M0,400 Q300,350 600,400 Q900,450 1200,400">
+      <animate attributeName="d" 
+               values="M0,400 Q300,350 600,400 Q900,450 1200,400;M0,420 Q300,370 600,420 Q900,470 1200,420;M0,400 Q300,350 600,400 Q900,450 1200,400" 
+               dur="8s" repeatCount="indefinite"/>
+    </path>
+    <path d="M0,200 Q300,250 600,200 Q900,150 1200,200">
+      <animate attributeName="d" 
+               values="M0,200 Q300,250 600,200 Q900,150 1200,200;M0,180 Q300,230 600,180 Q900,130 1200,180;M0,200 Q300,250 600,200 Q900,150 1200,200" 
+               dur="6s" repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

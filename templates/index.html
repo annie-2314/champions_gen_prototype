@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Champions Gen - AI-Powered Football Analytics Platform</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="logo-icon"></div>
+            <span class="logo-text">CHAMPIONS GEN</span>
+        </div>
+        <div class="nav-links">
+            <a onclick="showPage('landing')">Home</a>
+            <a onclick="showPage('dashboard')">Platform</a>
+            <a onclick="showPage('recruitment')">Recruitment</a>
+            <a onclick="showPage('development')">Development</a>
+            <a onclick="showPage('injury')">Injury Risk</a>
+            <a onclick="showPage('governance')">Governance</a>
+            <a onclick="showPage('demo')">Demo</a>
+        </div>
+        <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Landing Page -->
+    <div id="landing" class="page active">
+        <div class="landing">
+            <div class="football-animation">
+                <div class="cartoon-player">👤</div>
+                <div class="cartoon-player">🏃‍♂️</div>
+                <div class="cartoon-player">⚽</div>
+                <div class="floating-ball"></div>
+                <div class="floating-ball"></div>
+                <div class="floating-ball"></div>
+                <div class="floating-ball"></div>
+                <div class="floating-ball"></div>
+            </div>
+            
+            <div class="hero-content">
+                <div class="hero-tagline">AI-POWERED FOOTBALL INTELLIGENCE</div>
+                <h1 class="hero-title">CHAMPIONS GEN</h1>
+                <p class="hero-subtitle">
+                    On-premise multimodal AI platform that predicts player development, manages injury risk, 
+                    and delivers explainable insights for recruitment, development, and strategic decision-making.
+                </p>
+                
+                <div class="hero-moto">
+                    <h3>🎯 Our Mission</h3>
+                    <p>Reduce transfer errors and maximize ROI through AI-driven player analytics, 
+                    injury prevention, and data-driven strategic insights for modern football clubs.</p>
+                    
+                    <div class="core-features">
+                        <div class="core-feature" onclick="showFeatureModal('performance')">
+                            <strong>📊 Player Performance Prediction</strong>
+                            <p>AI-powered development forecasting</p>
+                            <div class="feature-click-hint">Click to learn more</div>
+                        </div>
+                        <div class="core-feature" onclick="showFeatureModal('injury')">
+                            <strong>🏥 Injury Prediction & Management</strong>
+                            <p>Risk assessment and prevention</p>
+                            <div class="feature-click-hint">Click to learn more</div>
+                        </div>
+                        <div class="core-feature" onclick="showFeatureModal('valuation')">
+                            <strong>💰 Valuation Prediction</strong>
+                            <p>Market value analysis and timing</p>
+                            <div class="feature-click-hint">Click to learn more</div>
+                        </div>
+                        <div class="core-feature" onclick="showFeatureModal('comparison')">
+                            <strong>⚖️ Player Comparison</strong>
+                            <p>Similarity matching and benchmarking</p>
+                            <div class="feature-click-hint">Click to learn more</div>
+                        </div>
+                        <div class="core-feature" onclick="showFeatureModal('teamfit')">
+                            <strong>🎯 Team Fit Analysis</strong>
+                            <p>Tactical integration assessment</p>
+                            <div class="feature-click-hint">Click to learn more</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cta-section">
+                    <button class="cta-button" onclick="showPage('dashboard')">
+                        Explore Platform
+                    </button>
+                    <button class="secondary-button" onclick="showPage('demo')">
+                        Live Demo
+                    </button>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="central-sphere">
+                    <div class="sphere-ring"></div>
+                    <div class="sphere-ring"></div>
+                    <div class="sphere-ring"></div>
+                    <div class="central-football"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard" class="page">
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">Champions Gen AI Platform</h2>
+                <p class="dashboard-subtitle">
+                    Comprehensive multimodal AI system for player development prediction, 
+                    injury risk management, and strategic decision support
+                </p>
+            </div>
+            
+            <div class="modules-grid">
+                <div class="module-card" onclick="showPage('recruitment')">
+                    <span class="module-icon">🎯</span>
+                    <h3 class="module-title">Recruitment Cockpit</h3>
+                    <p class="module-description">
+                        Intelligent player targeting with similarity search, risk assessment, 
+                        and valuation analysis for optimal recruitment decisions.
+                    </p>
+                    <ul class="module-features">
+                        <li>Role-based player filtering</li>
+                        <li>Similarity matching algorithm</li>
+                        <li>Risk/upside indicators</li>
+                        <li>Over/undervaluation flags</li>
+                        <li>XAI explanations</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card" onclick="showPage('development')">
+                    <span class="module-icon">📈</span>
+                    <h3 class="module-title">Development Planner</h3>
+                    <p class="module-description">
+                        Longitudinal KPI tracking with personalized training recommendations 
+                        and progress monitoring for player development.
+                    </p>
+                    <ul class="module-features">
+                        <li>Per-90 technical metrics</li>
+                        <li>Weak-point detection</li>
+                        <li>Personalized training plans</li>
+                        <li>4-12 week progress tracking</li>
+                        <li>Development alerts</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card" onclick="showPage('injury')">
+                    <span class="module-icon">🏥</span>
+                    <h3 class="module-title">Injury Risk Center</h3>
+                    <p class="module-description">
+                        Daily/weekly injury risk prediction with biomarker analysis, 
+                        load monitoring, and clinical feedback integration.
+                    </p>
+                    <ul class="module-features">
+                        <li>T0-7/14 day risk scores</li>
+                        <li>Load and HRV monitoring</li>
+                        <li>Biomarker analysis</li>
+                        <li>Clinical feedback loop</li>
+                        <li>Precision/recall tracking</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card" onclick="showPage('valuation')">
+                    <span class="module-icon">💰</span>
+                    <h3 class="module-title">Valuation & Timing</h3>
+                    <p class="module-description">
+                        Market value prediction with optimal sell windows and 
+                        negotiation support for strategic decision-making.
+                    </p>
+                    <ul class="module-features">
+                        <li>2-5 year value forecasts</li>
+                        <li>Best sell window analysis</li>
+                        <li>Comparable player analysis</li>
+                        <li>Negotiation talking points</li>
+                        <li>Market trend analysis</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card" onclick="showPage('strategy')">
+                    <span class="module-icon">⚽</span>
+                    <h3 class="module-title">Match Strategy</h3>
+                    <p class="module-description">
+                        Fatigue-aware performance forecasts and squad rotation 
+                        suggestions based on opponent analysis and schedule.
+                    </p>
+                    <ul class="module-features">
+                        <li>Performance forecasting</li>
+                        <li>Opponent-specific analysis</li>
+                        <li>Squad rotation optimization</li>
+                        <li>Fatigue load monitoring</li>
+                        <li>Tactical recommendations</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card" onclick="showPage('governance')">
+                    <span class="module-icon">🔒</span>
+                    <h3 class="module-title">Data Governance</h3>
+                    <p class="module-description">
+                        On-premise data management with GDPR compliance, 
+                        access controls, and audit logging for security.
+                    </p>
+                    <ul class="module-features">
+                        <li>Source status monitoring</li>
+                        <li>GDPR compliance panel</li>
+                        <li>Access control management</li>
+                        <li>Audit logging</li>
+                        <li>On-premise health checks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recruitment Cockpit -->
+    <div id="recruitment" class="page">
+        <div class="recruitment-page">
+            <div class="page-header">
+                <h2 class="page-title">Recruitment Cockpit</h2>
+                <p>Intelligent player targeting with AI-powered insights and explainable recommendations</p>
+            </div>
+            
+            <div class="filters-section">
+                <h3 style="color: #00f5ff; margin-bottom: 1rem;">🔍 Player Search & Filters</h3>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label class="filter-label">Position</label>
+                        <select class="filter-input" id="position-filter" onchange="filterPlayers()">
+                            <option>All Positions</option>
+                            <option>Goalkeeper</option>
+                            <option>Defender</option>
+                            <option>Midfielder</option>
+                            <option>Forward</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Age Range: <span id="age-display">16-35</span></label>
+                        <input type="range" class="filter-input" id="age-filter" min="16" max="35" value="25" oninput="updateAgeDisplay(); filterPlayers()">
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">League</label>
+                        <select class="filter-input" id="league-filter" onchange="filterPlayers()">
+                            <option>All Leagues</option>
+                            <option>Premier League</option>
+                            <option>La Liga</option>
+                            <option>Serie A</option>
+                            <option>Bundesliga</option>
+                            <option>Ligue 1</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Budget Range: €<span id="budget-display">1-200M</span></label>
+                        <input type="range" class="filter-input" id="budget-filter" min="1" max="200" value="50" oninput="updateBudgetDisplay(); filterPlayers()">
+                    </div>
+                </div>
+                <div class="filter-actions">
+                    <button class="secondary-button" onclick="resetFilters()">Reset Filters</button>
+                    <button class="cta-button" onclick="exportRecruitmentData()">Export Data</button>
+                </div>
+            </div>
+            
+            <div class="players-grid" id="players-grid">
+                <!-- Player cards will be dynamically generated here -->
+            </div>
+            
+            <div class="xai-panel" id="xai-panel" style="display: none;">
+                <h3 class="xai-title">🤖 AI Explanation Panel</h3>
+                <p id="xai-description" style="margin-bottom: 1rem; color: rgba(255,255,255,0.8);">
+                    Select a player to see AI-powered explanations
+                </p>
+                <div class="feature-importance" id="feature-importance">
+                    <!-- Feature importance will be populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Development Planner -->
+    <div id="development" class="page">
+        <div class="development-page">
+            <div class="page-header">
+                <h2 class="page-title">Development Planner</h2>
+                <p>Longitudinal KPI tracking and personalized training recommendations</p>
+            </div>
+            
+            <div class="player-selector">
+                <label for="dev-player-select">Select Player:</label>
+                <select id="dev-player-select" class="filter-input" onchange="updateDevelopmentData()">
+                    <option value="bellingham">Jude Bellingham</option>
+                    <option value="pedri">Pedri González</option>
+                    <option value="camavinga">Eduardo Camavinga</option>
+                    <option value="gavi">Pablo Gavi</option>
+                </select>
+            </div>
+            
+            <div class="trend-charts">
+                <div class="chart-card">
+                    <h3 class="chart-title">📊 Technical Performance Trends</h3>
+                    <canvas id="performanceChart" width="400" height="200"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <h3 class="chart-title">⚡ Physical Development</h3>
+                    <div class="metrics-grid" id="physical-metrics">
+                        <!-- Physical metrics will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="progress-tracking">
+                <h3 style="color: #00f5ff; margin-bottom: 1rem;">📈 Progress Tracking (Last 12 Weeks)</h3>
+                <div id="progress-items">
+                    <!-- Progress items will be populated dynamically -->
+                </div>
+            </div>
+            
+            <div class="training-recommendations">
+                <h3 style="color: #00f5ff; margin-bottom: 1rem;">🎯 Personalized Training Recommendations</h3>
+                <div id="training-recommendations">
+                    <!-- Training recommendations will be populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Injury Risk Center -->
+    <div id="injury" class="page">
+        <div class="injury-page">
+            <div class="page-header">
+                <h2 class="page-title">Injury Risk Center</h2>
+                <p>Daily/weekly injury risk prediction with biomarker analysis and clinical feedback</p>
+            </div>
+            
+            <div class="player-selector">
+                <label for="injury-player-select">Select Player:</label>
+                <select id="injury-player-select" class="filter-input" onchange="updateInjuryData()">
+                    <option value="bellingham">Jude Bellingham</option>
+                    <option value="pedri">Pedri González</option>
+                    <option value="camavinga">Eduardo Camavinga</option>
+                    <option value="mbappe">Kylian Mbappé</option>
+                </select>
+            </div>
+            
+            <div class="risk-overview" id="risk-overview">
+                <!-- Risk overview cards will be populated dynamically -->
+            </div>
+            
+            <div class="risk-timeline">
+                <h3 style="color: #00f5ff; margin-bottom: 1rem;">📅 Risk Timeline (T0-14 Days)</h3>
+                <canvas id="riskTimelineChart" width="400" height="200"></canvas>
+            </div>
+            
+            <div class="drivers-list">
+                <h3 style="color: #00f5ff; margin-bottom: 1rem;">🔍 Top Risk Drivers</h3>
+                <div id="risk-drivers">
+                    <!-- Risk drivers will be populated dynamically -->
+                </div>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-value">94.2%</span>
+                    <span class="metric-label">Model Precision</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-value">87.8%</span>
+                    <span class="metric-label">Recall Rate</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-value">90.9%</span>
+                    <span class="metric-label">F1 Score</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-value">96.1%</span>
+                    <span class="metric-label">Clinical Alignment</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Valuation & Timing -->
+    <div id="valuation" class="page">
+        <div class="feature-page">
+            <div class="page-header">
+                <h2 class="page-title">Valuation & Timing</h2>
+                <p>Market value prediction with optimal sell windows and negotiation support</p>
+            </div>
+            
+            <div class="player-selector">
+                <label for="valuation-player-select">Select Player:</label>
+                <select id="valuation-player-select" class="filter-input" onchange="updateValuationData()">
+                    <option value="mbappe">Kylian Mbappé</option>
+                    <option value="haaland">Erling Haaland</option>
+                    <option value="vinicius">Vinicius Jr</option>
+                    <option value="bellingham">Jude Bellingham</option>
+                </select>
+            </div>
+            
+            <div class="trend-charts">
+                <div class="chart-card">
+                    <h3 class="chart-title">💰 Value Forecast (5-Year Projection)</h3>
+                    <canvas id="valuationChart" width="400" height="200"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <h3 class="chart-title">📊 Market Comparisons</h3>
+                    <div id="comparable-players">
+                        <!-- Comparable players will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="training-recommendations">
+                <h3 style="color: #00f5ff; margin-bottom: 1rem;">💼 Strategic Insights</h3>
+                <div id="strategic-insights">
+                    <!-- Strategic insights will be populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Match Strategy -->
+    <div id="strategy" class="page">
+        <div class="feature-page">
+            <div class="page-header">
+                <h2 class="page-title">Match Strategy</h2>
+                <p>Fatigue-aware performance forecasts and squad rotation optimization</p>
+            </div>
+            
+            <div class="trend-charts">
+                <div class="chart-card">
+                    <h3 class="chart-title">📅 Upcoming Fixtures</h3>
+                    <div id="upcoming-fixtures">
+                        <!-- Fixtures will be populated dynamically -->
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <h3 class="chart-title">⚡ Squad Fatigue Analysis</h3>
+                    <canvas id="fatigueChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+            
+            <div class="training-recommendations">
+                <h3 style="color: #00f5ff; margin-bottom: 1rem;">🔄 Rotation Recommendations</h3>
+                <div id="rotation-recommendations">
+                    <!-- Rotation recommendations will be populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Governance -->
+    <div id="governance" class="page">
+        <div class="governance-page">
+            <div class="page-header">
+                <h2 class="page-title">Data Governance</h2>
+                <p>On-premise data management with GDPR compliance and security controls</p>
+            </div>
+            
+            <div class="governance-grid">
+                <div class="governance-card">
+                    <h3 style="color: #00f5ff; margin-bottom: 1rem;">🔗 Data Sources</h3>
+                    <div id="data-sources">
+                        <!-- Data sources will be populated dynamically -->
+                    </div>
+                </div>
+                
+                <div class="governance-card">
+                    <h3 style="color: #00f5ff; margin-bottom: 1rem;">🔒 Security & Privacy</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-value" style="color: #00ff00;">✓</span>
+                            <span class="metric-label">GDPR Compliant</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value" style="color: #00ff00;">✓</span>
+                            <span class="metric-label">Data Anonymized</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value">256</span>
+                            <span class="metric-label">Encryption Level</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value">0</span>
+                            <span class="metric-label">Data Breaches</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="governance-card">
+                    <h3 style="color: #00f5ff; margin-bottom: 1rem;">📊 System Health</h3>
+                    <div id="system-health">
+                        <!-- System health metrics will be populated dynamically -->
+                    </div>
+                </div>
+                
+                <div class="governance-card">
+                    <h3 style="color: #00f5ff; margin-bottom: 1rem;">👥 Access Control</h3>
+                    <div id="access-control">
+                        <!-- Access control info will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Page -->
+    <div id="demo" class="page">
+        <div class="feature-page">
+            <div class="page-header">
+                <h2 class="page-title">Live Demo - Champions Gen Platform</h2>
+                <p>Experience our comprehensive on-premise AI analytics platform with real-time integration</p>
+            </div>
+            
+            <div class="demo-section">
+                <h3>🚀 Complete Platform Integration</h3>
+                <p>Test our on-premise multimodal AI platform with live player data, real-time predictions, and explainable insights. Our backend provides comprehensive analytics across all modules.</p>
+                <button class="demo-button" onclick="startDemo()">Launch Platform Demo</button>
+                <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                    * Demo includes full platform functionality with real player analytics and AI predictions
+                </p>
+            </div>
+            
+            <div class="integration-status">
+                <div class="integration-item">
+                    <span class="integration-icon" style="color: #00ff00;">✅</span>
+                    <h4>Recruitment Module</h4>
+                    <p>Player targeting & XAI</p>
+                </div>
+                <div class="integration-item">
+                    <span class="integration-icon" style="color: #00ff00;">✅</span>
+                    <h4>Development Planner</h4>
+                    <p>KPI tracking & recommendations</p>
+                </div>
+                <div class="integration-item">
+                    <span class="integration-icon" style="color: #00ff00;">✅</span>
+                    <h4>Injury Risk Center</h4>
+                    <p>T0-14 day predictions</p>
+                </div>
+                <div class="integration-item">
+                    <span class="integration-icon" style="color: #00ff00;">✅</span>
+                    <h4>Valuation System</h4>
+                    <p>Market analysis & timing</p>
+                </div>
+                <div class="integration-item">
+                    <span class="integration-icon" style="color: #00ff00;">✅</span>
+                    <h4>Match Strategy</h4>
+                    <p>Fatigue-aware forecasts</p>
+                </div>
+                <div class="integration-item">
+                    <span class="integration-icon" style="color: #00ff00;">✅</span>
+                    <h4>Data Governance</h4>
+                    <p>GDPR compliance & security</p>
+                </div>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, rgba(0,245,255,0.1), rgba(255,0,102,0.1)); border-radius: 20px; padding: 2rem; margin: 2rem 0; border: 1px solid rgba(0,245,255,0.3);">
+                <h4>🏗️ On-Premise Architecture</h4>
+                <p>Our platform runs entirely on your infrastructure with:</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0; text-align: left;">
+                    <div>
+                        <p>✅ Local data processing</p>
+                        <p>✅ No external data transmission</p>
+                        <p>✅ Full GDPR compliance</p>
+                        <p>✅ Read-only connectors</p>
+                    </div>
+                    <div>
+                        <p>✅ Multi-source integration</p>
+                        <p>✅ Real-time ML predictions</p>
+                        <p>✅ Explainable AI insights</p>
+                        <p>✅ Role-based access control</p>
+                    </div>
+                </div>
+                <button class="demo-button" onclick="showTechnicalSpecs()" style="margin-top: 1rem;">View Technical Specifications</button>
+            </div>
+            
+            <div class="trend-charts">
+                <div class="chart-card">
+                    <h3 class="chart-title">📈 Platform Metrics</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-value">500+</span>
+                            <span class="metric-label">Players Tracked</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value">50+</span>
+                            <span class="metric-label">Leagues Covered</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value">94.2%</span>
+                            <span class="metric-label">Prediction Accuracy</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value">99.9%</span>
+                            <span class="metric-label">System Uptime</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <h3 class="chart-title">🎯 Success KPIs</h3>
+                    <canvas id="successChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Modal -->
+    <div id="featureModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Feature Details</h2>
+                <span class="modal-close" onclick="closeFeatureModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="modalContent">
+                    <!-- Dynamic content will be loaded here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cta-button" id="modalActionBtn" onclick="closeFeatureModal()">
+                    Try Now
+                </button>
+                <button class="secondary-button" onclick="closeFeatureModal()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='data.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
