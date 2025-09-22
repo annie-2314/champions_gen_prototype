@@ -41,8 +41,7 @@ function initializeApp() {
 }
 
 function setupEventListeners() {
-    // Navbar scroll effect
-    window.addEventListener('scroll', handleNavbarScroll);
+    // Navbar scroll effect removed - keeping solid header
     
     // Mobile menu toggle
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
@@ -957,12 +956,13 @@ function getProgressDescription(key, trend) {
 }
 
 function handleNavbarScroll() {
+    // Function kept for compatibility but no transparency changes
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(10, 10, 10, 0.4)';
+        navbar.style.background = 'rgb(10, 10, 10)'; // Keep solid
         navbar.style.boxShadow = '0 5px 20px rgba(0, 245, 255, 0.1)';
     } else {
-        navbar.style.background = 'rgba(10, 10, 10, 0.2)';
+        navbar.style.background = 'rgb(10, 10, 10)'; // Keep solid
         navbar.style.boxShadow = 'none';
     }
 }
@@ -1024,24 +1024,295 @@ function setupAnimations() {
 
 // Demo Functions
 function startDemo() {
-    showNotification('🚀 Champions Gen Platform Demo Starting!', 'success');
+    // Show the demo controls
+    const demoControls = document.getElementById('demoControls');
+    if (demoControls) {
+        demoControls.style.display = 'block';
+        demoControls.scrollIntoView({ behavior: 'smooth' });
+    }
     
-    setTimeout(() => {
-        showNotification('✅ Multi-source data connectors activated', 'info');
-    }, 1000);
+    // Update button text
+    const demoButton = document.querySelector('.demo-button');
+    if (demoButton && demoButton.textContent.includes('Launch')) {
+        demoButton.textContent = '🔄 Reset Demo';
+        demoButton.onclick = resetDemo;
+    }
     
-    setTimeout(() => {
-        showNotification('✅ ML prediction models loaded', 'info');
-    }, 2000);
-    
-    setTimeout(() => {
-        showNotification('✅ XAI explanation system ready', 'info');
-    }, 3000);
-    
-    setTimeout(() => {
-        showNotification('🎯 Demo Mode: Full platform functionality enabled!', 'success');
-    }, 4000);
+    showNotification('🚀 Demo Interface Activated!', 'success');
 }
+
+function resetDemo() {
+    // Hide all demo sections
+    const demoControls = document.getElementById('demoControls');
+    const progressSection = document.getElementById('progressSection');
+    const demoResults = document.getElementById('demoResults');
+    
+    if (demoControls) demoControls.style.display = 'none';
+    if (progressSection) progressSection.style.display = 'none';
+    if (demoResults) demoResults.style.display = 'none';
+    
+    // Reset form
+    const playerSearch = document.getElementById('playerSearch');
+    const playerDropdown = document.getElementById('playerDropdown');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    
+    if (playerSearch) playerSearch.value = '';
+    if (playerDropdown) playerDropdown.value = '';
+    if (analyzeBtn) analyzeBtn.disabled = true;
+    
+    // Reset button
+    const demoButton = document.querySelector('.demo-button');
+    if (demoButton) {
+        demoButton.textContent = '🚀 Launch Platform Demo';
+        demoButton.onclick = startDemo;
+    }
+    
+    showNotification('Demo Reset Complete', 'info');
+}
+
+function searchPlayers() {
+    const searchInput = document.getElementById('playerSearch');
+    const dropdown = document.getElementById('playerDropdown');
+    
+    if (!searchInput || !dropdown) return;
+    
+    const searchTerm = searchInput.value.toLowerCase();
+    const options = dropdown.querySelectorAll('option');
+    
+    // Filter dropdown options based on search
+    options.forEach(option => {
+        if (option.value === '') return; // Skip the default option
+        
+        const playerName = option.textContent.toLowerCase();
+        if (playerName.includes(searchTerm)) {
+            option.style.display = 'block';
+        } else {
+            option.style.display = 'none';
+        }
+    });
+    
+    // Auto-select if exact match
+    const exactMatch = Array.from(options).find(option => 
+        option.textContent.toLowerCase() === searchTerm
+    );
+    
+    if (exactMatch) {
+        dropdown.value = exactMatch.value;
+        selectPlayer();
+    }
+}
+
+function selectPlayer() {
+    const dropdown = document.getElementById('playerDropdown');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    
+    if (!dropdown || !analyzeBtn) return;
+    
+    const selectedValue = dropdown.value;
+    analyzeBtn.disabled = !selectedValue;
+    
+    if (selectedValue) {
+        selectedPlayer = selectedValue;
+        // Update search input to match selection
+        const searchInput = document.getElementById('playerSearch');
+        if (searchInput) {
+            const selectedOption = dropdown.querySelector(`option[value="${selectedValue}"]`);
+            if (selectedOption) {
+                searchInput.value = selectedOption.textContent;
+            }
+        }
+    }
+}
+
+function analyzePlayer() {
+    if (!selectedPlayer) return;
+    
+    // Show progress section
+    const progressSection = document.getElementById('progressSection');
+    const demoResults = document.getElementById('demoResults');
+    
+    if (progressSection) progressSection.style.display = 'block';
+    if (demoResults) demoResults.style.display = 'none';
+    
+    // Start analysis simulation
+    simulateAnalysis();
+}
+
+function simulateAnalysis() {
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const steps = ['step1', 'step2', 'step3', 'step4'];
+    
+    let currentStep = 0;
+    let progress = 0;
+    
+    const interval = setInterval(() => {
+        progress += Math.random() * 15 + 10; // Random progress increment
+        
+        if (progress > 100) progress = 100;
+        
+        // Update progress bar
+        if (progressBar) {
+            progressBar.style.width = progress + '%';
+        }
+        
+        // Update current step
+        if (currentStep < steps.length) {
+            const stepElement = document.getElementById(steps[currentStep]);
+            if (stepElement) {
+                // Mark previous steps as completed
+                for (let i = 0; i < currentStep; i++) {
+                    const prevStep = document.getElementById(steps[i]);
+                    if (prevStep) {
+                        prevStep.classList.add('completed');
+                        prevStep.querySelector('.step-icon').textContent = '✅';
+                    }
+                }
+                
+                // Mark current step as active
+                stepElement.classList.add('active');
+                stepElement.querySelector('.step-icon').textContent = '🔄';
+            }
+        }
+        
+        // Update progress text
+        const stepTexts = [
+            'Connecting to backend...',
+            'Loading player data...',
+            'Running AI analysis...',
+            'Generating insights...'
+        ];
+        
+        if (progressText && currentStep < stepTexts.length) {
+            progressText.textContent = stepTexts[currentStep];
+        }
+        
+        // Move to next step
+        if (progress >= (currentStep + 1) * 25) {
+            currentStep++;
+        }
+        
+        // Complete analysis
+        if (progress >= 100) {
+            clearInterval(interval);
+            completeAnalysis();
+        }
+    }, 500);
+}
+
+function completeAnalysis() {
+    const progressText = document.getElementById('progressText');
+    const demoResults = document.getElementById('demoResults');
+    const playerAnalysis = document.getElementById('playerAnalysis');
+    
+    // Mark all steps as completed
+    ['step1', 'step2', 'step3', 'step4'].forEach(stepId => {
+        const step = document.getElementById(stepId);
+        if (step) {
+            step.classList.add('completed');
+            step.classList.remove('active');
+            step.querySelector('.step-icon').textContent = '✅';
+        }
+    });
+    
+    if (progressText) {
+        progressText.textContent = 'Analysis complete! 🎉';
+    }
+    
+    // Show results after a delay
+    setTimeout(() => {
+        if (demoResults) demoResults.style.display = 'block';
+        if (playerAnalysis) {
+            playerAnalysis.innerHTML = generatePlayerAnalysis(selectedPlayer);
+        }
+        
+        // Scroll to results
+        if (demoResults) {
+            demoResults.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        showNotification('✅ Player Analysis Complete!', 'success');
+    }, 1000);
+}
+
+function generatePlayerAnalysis(playerId) {
+    const playerData = {
+        'mbappe': {
+            name: 'Kylian Mbappé',
+            position: 'Forward',
+            age: 25,
+            value: '€180M',
+            prediction: 'High potential for continued excellence'
+        },
+        'haaland': {
+            name: 'Erling Haaland',
+            position: 'Forward',
+            age: 24,
+            value: '€170M',
+            prediction: 'Exceptional goal-scoring trajectory'
+        },
+        'bellingham': {
+            name: 'Jude Bellingham',
+            position: 'Midfielder',
+            age: 21,
+            value: '€120M',
+            prediction: 'Rising star with versatile skillset'
+        },
+        'vinicius': {
+            name: 'Vinicius Jr',
+            position: 'Forward',
+            age: 24,
+            value: '€120M',
+            prediction: 'Elite dribbling and pace analysis'
+        },
+        'pedri': {
+            name: 'Pedri González',
+            position: 'Midfielder',
+            age: 22,
+            value: '€90M',
+            prediction: 'Technical excellence and vision'
+        }
+    };
+    
+    const player = playerData[playerId] || {
+        name: 'Selected Player',
+        position: 'Unknown',
+        age: 'N/A',
+        value: 'N/A',
+        prediction: 'Analysis complete'
+    };
+    
+    return `
+        <div class="analysis-card" style="background: rgba(255,255,255,0.05); border-radius: 15px; padding: 2rem; border: 1px solid rgba(0,245,255,0.2);">
+            <h4 style="color: #00f5ff; margin-bottom: 1rem;">${player.name} - AI Analysis Results</h4>
+            <div class="analysis-metrics" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                <div class="metric-item" style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 10px;">
+                    <span class="metric-label" style="display: block; color: rgba(255,255,255,0.7); font-size: 0.9rem;">Position:</span>
+                    <span class="metric-value" style="color: #00f5ff; font-weight: bold; font-size: 1.1rem;">${player.position}</span>
+                </div>
+                <div class="metric-item" style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 10px;">
+                    <span class="metric-label" style="display: block; color: rgba(255,255,255,0.7); font-size: 0.9rem;">Current Value:</span>
+                    <span class="metric-value" style="color: #00ff00; font-weight: bold; font-size: 1.1rem;">${player.value}</span>
+                </div>
+                <div class="metric-item" style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 10px;">
+                    <span class="metric-label" style="display: block; color: rgba(255,255,255,0.7); font-size: 0.9rem;">AI Prediction:</span>
+                    <span class="metric-value" style="color: #ffff00; font-weight: bold; font-size: 1.1rem;">${player.prediction}</span>
+                </div>
+            </div>
+            <div class="analysis-insights" style="margin-top: 2rem;">
+                <h5 style="color: #00ff00; margin: 1rem 0;">🎯 Key AI Insights:</h5>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.5rem 0; color: rgba(255,255,255,0.8);">✅ Strong performance metrics detected</li>
+                    <li style="padding: 0.5rem 0; color: rgba(255,255,255,0.8);">✅ Low injury risk profile</li>
+                    <li style="padding: 0.5rem 0; color: rgba(255,255,255,0.8);">✅ Positive development trajectory</li>
+                    <li style="padding: 0.5rem 0; color: rgba(255,255,255,0.8);">✅ High tactical versatility score</li>
+                    <li style="padding: 0.5rem 0; color: rgba(255,255,255,0.8);">✅ Backend connection established</li>
+                </ul>
+            </div>
+        </div>
+    `;
+}
+
 
 function showTechnicalSpecs() {
     const specs = `
